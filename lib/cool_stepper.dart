@@ -140,6 +140,7 @@ class _CoolStepperState extends State<CoolStepper> {
         "${widget.config.stepText ?? 'STEP'} ${currentStep + 1} ${widget.config.ofText ?? 'OF'} ${widget.steps.length}",
         style: TextStyle(
           fontWeight: FontWeight.bold,
+          color: widget.config.stepColor ?? Colors.black,
         ),
       ),
     );
@@ -180,7 +181,7 @@ class _CoolStepperState extends State<CoolStepper> {
             onPressed: onStepBack,
             child: Text(
               getPrevLabel(),
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: widget.config.backColor ?? Colors.grey),
             ),
           ),
           counter,
@@ -189,7 +190,7 @@ class _CoolStepperState extends State<CoolStepper> {
             child: Text(
               getNextLabel(),
               style: TextStyle(
-                color: Colors.green,
+                color: widget.config.nextColor ?? Colors.green,
               ),
             ),
           ),

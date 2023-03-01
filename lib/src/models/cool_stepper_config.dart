@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+// class Traslator {
+//   final
+// }
+
 class CoolStepperConfig {
   /// The text that should be displayed for the back button
   ///
@@ -63,7 +67,7 @@ class CoolStepperConfig {
 
   /// The color of back button
   ///
-  /// If the color is not specified it will assume Black
+  /// If the color is not specified it will assume Grey
   final Color? backColor;
 
   /// The color of back button
@@ -93,7 +97,7 @@ class CoolStepperConfig {
     this.finalText = 'FINISH',
     this.isHeaderEnabled = true,
     this.nextColor = Colors.green,
-    this.backColor = Colors.black,
+    this.backColor = Colors.grey,
     this.stepColor = Colors.black,
     this.localeName = 'pt_BR',
   });
