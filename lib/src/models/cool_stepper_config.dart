@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CoolStepperConfig {
@@ -53,7 +56,27 @@ class CoolStepperConfig {
   /// default is 'FINISH'
   final String? finalText;
 
+  /// The color of next button
+  ///
+  /// If the color is not specified it will assume Green
+  final Color? nextColor;
+
+  /// The color of back button
+  ///
+  /// If the color is not specified it will assume Black
+  final Color? backColor;
+
+  /// The color of back button
+  ///
+  /// If the color is not specified it will assume Black
+  final Color? stepColor;
+
   final bool isHeaderEnabled;
+
+  /// The locale sign of your location for translate the default texts
+  ///
+  /// If not specified will assume the device language
+  final String? localeName;
 
   const CoolStepperConfig({
     this.backText = 'PRE',
@@ -69,5 +92,9 @@ class CoolStepperConfig {
     this.nextTextList,
     this.finalText = 'FINISH',
     this.isHeaderEnabled = true,
+    this.nextColor = Colors.green,
+    this.backColor = Colors.black,
+    this.stepColor = Colors.black,
+    this.localeName = 'pt_BR',
   });
 }
