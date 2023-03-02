@@ -7,11 +7,10 @@ class CoolStep {
   final String? Function()? validation;
   final bool isHeaderEnabled;
 
-  CoolStep({
-    required this.title,
-    required this.subtitle,
-    required this.content,
-    required this.validation,
-    this.isHeaderEnabled = true
-  });
+  CoolStep(
+      {required this.title,
+      required this.subtitle,
+      required this.content,
+      required this.validation,
+      this.isHeaderEnabled = true});
 }

@@ -82,6 +82,11 @@ class CoolStepperConfig {
   /// If not specified will assume the device language
   final String? localeName;
 
+  /// The text on the All Fields button
+  ///
+  /// Default is 'ALL FIELDS'
+  final String? allFieldsText;
+
   const CoolStepperConfig({
     this.backText = 'PRE',
     this.nextText = 'NEXT',
@@ -100,5 +105,6 @@ class CoolStepperConfig {
     this.backColor = Colors.grey,
     this.stepColor = Colors.black,
     this.localeName = 'pt_BR',
+    this.allFieldsText = 'ALL FIELDS',
   });
 }

@@ -12,6 +12,8 @@ dependencies:
 
   another_flushbar: ^1.10.18
   translator: ^0.1.7
+  awesome_dialog: ^3.0.2
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ export 'package:cool_stepper/src/models/cool_step.dart';
 export 'package:cool_stepper/src/models/cool_stepper_config.dart';
 
 import 'package:another_flushbar/flushbar.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 import 'package:cool_stepper/src/models/cool_step.dart';
 import 'package:cool_stepper/src/models/cool_stepper_config.dart';
@@ -71,6 +72,15 @@ class _CoolStepperState extends State<CoolStepper> {
   bool _isLast(int index) {
     return widget.steps.length - 1 == index;
   }
+
+  // _setIndex(int index) {
+  //   if (index > 0 && index < widget.steps.length) {
+  //     switchToPage(index);
+  //   } else {
+  //     throw Exception(
+  //         'int Index must be above 0 and below or equal the steps count. Index : $index');
+  //   }
+  // }
 
   void onStepNext() {
     final validation = widget.steps[currentStep].validation!();
@@ -193,6 +203,69 @@ class _CoolStepperState extends State<CoolStepper> {
                 color: widget.config.nextColor ?? Colors.green,
               ),
             ),
+          ),
+        ],
+      ),
+    );
+
+    final allf = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.info,
+                headerAnimationLoop: false,
+                animType: AnimType.bottomSlide,
+                body: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    children: List.generate(widget.steps.length, (index) {
+                      return ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          widget.steps.elementAt(index).validation != null
+                              ? Icons.text_fields_rounded
+                              : Icons.text_fields,
+                          color:
+                              widget.steps.elementAt(index).validation != null
+                                  ? Colors.red.shade400
+                                  : Colors.black,
+                        ),
+                        label: Text('Campo $index'),
+                        style: ButtonStyle(
+                          elevation: MaterialStatePropertyAll(4),
+                          backgroundColor: MaterialStatePropertyAll(
+                              widget.steps.elementAt(index).validation != null
+                                  ? Colors.red.shade900
+                                  : Colors.white),
+                          shape:
+                              MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide.none,
+                          )),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                btnOkOnPress: () {},
+                btnOkText: 'OK',
+              ).show();
+            },
+            style: ButtonStyle(
+              elevation: MaterialStatePropertyAll(4),
+              backgroundColor: MaterialStatePropertyAll(Colors.white),
+              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide.none,
+              )),
+            ),
+            child: Text(widget.config.allFieldsText ?? 'ALL FIELDS  '),
           ),
         ],
       ),
