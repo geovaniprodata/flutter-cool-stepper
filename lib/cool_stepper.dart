@@ -221,13 +221,13 @@ class _CoolStepperState extends State<CoolStepper> {
                 animType: AnimType.bottomSlide,
                 body: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Wrap(
                       direction: Axis.horizontal,
-                      spacing: 8,
-                      runSpacing: 12,
+                      spacing: 4,
+                      runSpacing: 6,
                       children: List.generate(widget.steps.length, (index) {
                         return ElevatedButton.icon(
                           onPressed: () {},
@@ -240,7 +240,10 @@ class _CoolStepperState extends State<CoolStepper> {
                                     ? Colors.red.shade400
                                     : Colors.black,
                           ),
-                          label: Text('Campo $index'),
+                          label: Text(
+                            'Campo $index',
+                            style: TextStyle(color: Colors.white),
+                          ),
                           style: ButtonStyle(
                             elevation: MaterialStatePropertyAll(4),
                             backgroundColor: MaterialStatePropertyAll(
