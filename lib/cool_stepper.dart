@@ -145,7 +145,6 @@ class _CoolStepperState extends State<CoolStepper>
             .push(MaterialPageRoute(builder: (context) => widget));
       },
       child: Container(
-        color: Colors.white,
         padding: EdgeInsets.all(10),
         child: Text(title),
       ),
@@ -419,7 +418,7 @@ class _CoolStepperState extends State<CoolStepper>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: tabs.map((tab) {
-        return _buildItem(context, tab.name, listPages[tab.index]);
+        return _buildItem(context, tab.name, listPages.elementAt(tab.index));
       }).toList(),
     );
     //     allf,
