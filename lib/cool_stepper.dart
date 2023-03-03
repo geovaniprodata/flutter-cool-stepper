@@ -13,6 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_point_tab_bar/pointTabBar.dart';
 import 'package:translator/translator.dart';
 
+class TabIndex {
+  String name;
+  int index;
+
+  TabIndex({required this.name, required this.index});
+}
+
 /// CoolStepper
 class CoolStepper extends StatefulWidget {
   /// The steps of the stepper whose titles, subtitles, content always get shown.
@@ -61,7 +68,7 @@ class _CoolStepperState extends State<CoolStepper>
   int currentStep = 0;
   int indexStack = 0;
 
-  Map<String, int> nomeIndex = {};
+  List<TabIndex> tabs = [];
 
   bool onlyRequired = false;
 
@@ -101,8 +108,8 @@ class _CoolStepperState extends State<CoolStepper>
       tabRequired = translationNreq.text;
     }
 
-    nomeIndex[tabRequired] = 0;
-    nomeIndex[tabNonRequired] = 1;
+    tabs.add(TabIndex(name: tabRequired, index: 0));
+    tabs.add(TabIndex(name: tabNonRequired, index: 1));
   }
 
   void _setSteps() {
@@ -231,12 +238,12 @@ class _CoolStepperState extends State<CoolStepper>
           color: Colors.white,
           insets: EdgeInsets.only(bottom: 6),
         ),
-        tabs: List.generate(nomeIndex.length, (index) {
+        tabs: tabs.map((item) {
           return Tab(
-            text: nomeIndex.entries.elementAt(index).key,
-            child: listStack[index],
+            text: item.name,
+            child: listStack[item.index],
           );
-        }));
+        }).toList());
 
     final content = Expanded(
       child: PageView(
