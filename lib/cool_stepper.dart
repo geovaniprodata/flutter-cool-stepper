@@ -10,7 +10,6 @@ import 'package:cool_stepper/src/models/cool_step.dart';
 import 'package:cool_stepper/src/models/cool_stepper_config.dart';
 import 'package:cool_stepper/src/widgets/cool_stepper_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_point_tab_bar/pointTabBar.dart';
 import 'package:translator/translator.dart';
 
 class TabIndex {
@@ -80,7 +79,7 @@ class _CoolStepperState extends State<CoolStepper>
   @override
   void initState() {
     _setSteps();
-    Future.delayed(const Duration(seconds: 2), () => _setTabs());
+    _setTabs();
     _tabController = TabController(length: tabs.length, vsync: this);
     super.initState();
   }
@@ -137,6 +136,19 @@ class _CoolStepperState extends State<CoolStepper>
 
   bool _isLast(int index) {
     return widget.steps.length - 1 == index;
+  }
+
+  Widget _buildItem(BuildContext context, String title, Widget widget) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => widget));
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Text(title),
+      ),
+    );
   }
 
   // _setIndex(int index) {
@@ -197,7 +209,7 @@ class _CoolStepperState extends State<CoolStepper>
 
   @override
   Widget build(BuildContext context) {
-    final listStack = <Widget>[
+    final listPages = <Widget>[
       Expanded(
         child: PageView(
           controller: _controller,
@@ -225,25 +237,6 @@ class _CoolStepperState extends State<CoolStepper>
         ),
       ),
     ];
-
-    final indexedStack = IndexedStack(
-      index: indexStack,
-      children: listStack,
-    );
-
-    final topTabBar = TabBar(
-        controller: _tabController,
-        indicator: PointTabIndicator(
-          position: PointTabIndicatorPosition.bottom,
-          color: Colors.white,
-          insets: EdgeInsets.only(bottom: 6),
-        ),
-        tabs: tabs.map((item) {
-          return Tab(
-            text: item.name,
-            child: listStack[item.index],
-          );
-        }).toList());
 
     final content = Expanded(
       child: PageView(
@@ -425,7 +418,17 @@ class _CoolStepperState extends State<CoolStepper>
     return Container(
       child: Column(
           children: widget.tabRequired
-              ? <Widget>[topTabBar, allf, buttons]
+              ? <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: tabs.map((tab) {
+                      return _buildItem(
+                          context, tab.name, listPages[tab.index]);
+                    }).toList(),
+                  ),
+                  allf,
+                  buttons
+                ]
               : <Widget>[content, allf, buttons]),
     );
   }

@@ -70,14 +70,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_point_tab_bar:
+  flutter_custom_tab_bar:
     dependency: "direct main"
     description:
-      name: flutter_point_tab_bar
-      sha256: bcd1abfce5705135f0f9aa81969d326d7fc305957f0c810a53c3258a4a0aa223
+      name: flutter_custom_tab_bar
+      sha256: "5f550d5343ebf778ae73d1de775c8d38e4a2312146cd77845472dd7ed04aafca"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "1.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -250,3 +250,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.0 <4.0.0"
+  flutter: ">=1.17.0"
