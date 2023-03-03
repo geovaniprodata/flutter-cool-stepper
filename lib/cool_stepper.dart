@@ -79,10 +79,10 @@ class _CoolStepperState extends State<CoolStepper>
 
   @override
   void initState() {
-    super.initState();
     _setSteps();
-    _tabController = TabController(length: 2, vsync: this);
-    _setTabs();
+    Future.delayed(const Duration(seconds: 2), () => _setTabs());
+    _tabController = TabController(length: tabs.length, vsync: this);
+    super.initState();
   }
 
   @override
