@@ -10,6 +10,8 @@ import 'package:cool_stepper/src/models/cool_step.dart';
 import 'package:cool_stepper/src/models/cool_stepper_config.dart';
 import 'package:cool_stepper/src/widgets/cool_stepper_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_point_tab_bar/pointTabBar.dart';
+import 'package:translator/translator.dart';
 
 /// CoolStepper
 class CoolStepper extends StatefulWidget {
@@ -32,10 +34,16 @@ class CoolStepper extends StatefulWidget {
   /// default is false
   final bool showErrorSnackbar;
 
+  /// This determines if you want a TabBar of Required fields and non-required fields
+  ///
+  /// default is false
+  final bool tabRequired;
+
   const CoolStepper({
     Key? key,
     required this.steps,
     required this.onCompleted,
+    this.tabRequired = false,
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.config = const CoolStepperConfig(),
     this.showErrorSnackbar = false,
@@ -45,16 +53,62 @@ class CoolStepper extends StatefulWidget {
   _CoolStepperState createState() => _CoolStepperState();
 }
 
-class _CoolStepperState extends State<CoolStepper> {
+class _CoolStepperState extends State<CoolStepper>
+    with SingleTickerProviderStateMixin {
   PageController? _controller = PageController();
+  late TabController? _tabController;
 
   int currentStep = 0;
+  int indexStack = 0;
+
+  Map<String, int> nomeIndex = {};
+
+  bool onlyRequired = false;
+
+  List<CoolStep> stepsNoRequired = [];
+  List<CoolStep> stepsRequired = [];
+
+  final translator = GoogleTranslator();
 
   @override
   void dispose() {
     _controller!.dispose();
     _controller = null;
     super.dispose();
+
+    _setSteps();
+    _tabController = TabController(length: 2, vsync: this);
+    _setTabs();
+  }
+
+  void _setTabs() async {
+    var tabRequired = 'REQUIRED';
+    var tabNonRequired = 'NON-REQUIRED';
+
+    var sgCountry = widget.config.localeName!.substring(0, 2);
+
+    if (!widget.config.localeName!.contains('en')) {
+      final translationreq =
+          await translator.translate(tabRequired, from: 'en', to: sgCountry);
+      tabRequired = translationreq.text;
+
+      final translationNreq =
+          await translator.translate(tabNonRequired, from: 'en', to: sgCountry);
+      tabRequired = translationNreq.text;
+    }
+
+    nomeIndex[tabRequired] = 0;
+    nomeIndex[tabNonRequired] = 1;
+  }
+
+  void _setSteps() {
+    for (var element in widget.steps) {
+      if (element.validation != null) {
+        stepsRequired.add(element);
+      } else {
+        stepsNoRequired.add(element);
+      }
+    }
   }
 
   Future<void>? switchToPage(int page) {
@@ -63,6 +117,7 @@ class _CoolStepperState extends State<CoolStepper> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
+    return null;
   }
 
   bool _isFirst(int index) {
@@ -131,6 +186,53 @@ class _CoolStepperState extends State<CoolStepper> {
 
   @override
   Widget build(BuildContext context) {
+    final listStack = <Widget>[
+      Expanded(
+        child: PageView(
+          controller: _controller,
+          physics: NeverScrollableScrollPhysics(),
+          children: stepsRequired.map((step) {
+            return CoolStepperView(
+              step: step,
+              contentPadding: widget.contentPadding,
+              config: widget.config,
+            );
+          }).toList(),
+        ),
+      ),
+      Expanded(
+        child: PageView(
+          controller: _controller,
+          physics: NeverScrollableScrollPhysics(),
+          children: stepsNoRequired.map((step) {
+            return CoolStepperView(
+              step: step,
+              contentPadding: widget.contentPadding,
+              config: widget.config,
+            );
+          }).toList(),
+        ),
+      ),
+    ];
+
+    final indexedStack = IndexedStack(
+      index: indexStack,
+      children: listStack,
+    );
+
+    final topTabBar = TabBar(
+        controller: _tabController,
+        indicator: PointTabIndicator(
+          position: PointTabIndicatorPosition.bottom,
+          color: Colors.white,
+          insets: EdgeInsets.only(bottom: 6),
+        ),
+        tabs: List.generate(nomeIndex.length, (index) {
+          return Tab(
+            text: nomeIndex.entries.elementAt(index).key,
+          );
+        }));
+
     final content = Expanded(
       child: PageView(
         controller: _controller,
@@ -280,7 +382,7 @@ class _CoolStepperState extends State<CoolStepper> {
                                       : Colors.white),
                               shape: MaterialStatePropertyAll(
                                   RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(12),
                                 side: BorderSide.none,
                               )),
                             ),
@@ -310,7 +412,9 @@ class _CoolStepperState extends State<CoolStepper> {
 
     return Container(
       child: Column(
-        children: [content, allf, buttons],
+        children: widget.tabRequired
+            ? <Widget>[content, allf, buttons]
+            : <Widget>[topTabBar, indexedStack, allf, buttons],
       ),
     );
   }
