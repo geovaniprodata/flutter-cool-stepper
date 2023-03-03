@@ -219,54 +219,70 @@ class _CoolStepperState extends State<CoolStepper> {
                 dialogType: DialogType.info,
                 headerAnimationLoop: false,
                 animType: AnimType.bottomSlide,
+                btnOkColor: Colors.blue.shade400,
                 body: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.height * 0.6,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 4,
-                      runSpacing: 6,
-                      children: List.generate(widget.steps.length, (index) {
-                        return ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(
-                            widget.steps.elementAt(index).validation != null
-                                ? Icons.text_fields_rounded
-                                : Icons.text_fields,
-                            color:
-                                widget.steps.elementAt(index).validation != null
-                                    ? Colors.red.shade400
-                                    : Colors.black,
-                          ),
-                          label: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Campo',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                index.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          style: ButtonStyle(
-                            elevation: MaterialStatePropertyAll(4),
-                            backgroundColor: MaterialStatePropertyAll(
-                                widget.steps.elementAt(index).validation != null
-                                    ? Colors.red.shade900
-                                    : Colors.white),
-                            shape:
-                                MaterialStatePropertyAll(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide.none,
-                            )),
-                          ),
-                        );
-                      }),
+                    child: Center(
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 4,
+                        runSpacing: 6,
+                        children: List.generate(widget.steps.length, (index) {
+                          return ElevatedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(
+                              widget.steps.elementAt(index).validation != null
+                                  ? Icons.text_fields_rounded
+                                  : Icons.text_fields,
+                              color: widget.steps.elementAt(index).validation !=
+                                      null
+                                  ? Colors.red.shade400
+                                  : Colors.black,
+                            ),
+                            label: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Campo',
+                                  style: TextStyle(
+                                      color: widget.steps
+                                                  .elementAt(index)
+                                                  .validation !=
+                                              null
+                                          ? Colors.white
+                                          : Colors.black87),
+                                ),
+                                Text(
+                                  index.toString(),
+                                  style: TextStyle(
+                                      color: widget.steps
+                                                  .elementAt(index)
+                                                  .validation !=
+                                              null
+                                          ? Colors.white
+                                          : Colors.black87),
+                                ),
+                              ],
+                            ),
+                            style: ButtonStyle(
+                              elevation: MaterialStatePropertyAll(4),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  widget.steps.elementAt(index).validation !=
+                                          null
+                                      ? Colors.red.shade900
+                                      : Colors.white),
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: BorderSide.none,
+                              )),
+                            ),
+                          );
+                        }),
+                      ),
                     ),
                   ),
                 ),
