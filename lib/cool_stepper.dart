@@ -210,7 +210,7 @@ class _CoolStepperState extends State<CoolStepper> {
 
     final allf = Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
@@ -221,18 +221,22 @@ class _CoolStepperState extends State<CoolStepper> {
                 animType: AnimType.bottomSlide,
                 btnOkColor: Theme.of(context).primaryColor,
                 body: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.64,
                   height: MediaQuery.of(context).size.height * 0.6,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Center(
                       child: Wrap(
                         direction: Axis.horizontal,
-                        spacing: 4,
-                        runSpacing: 6,
+                        spacing: 6,
+                        runSpacing: 8,
                         children: List.generate(widget.steps.length, (index) {
                           return ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              currentStep = index;
+                              FocusScope.of(context).unfocus();
+                              switchToPage(currentStep);
+                            },
                             icon: Icon(
                               widget.steps.elementAt(index).validation != null
                                   ? Icons.text_fields_rounded
@@ -306,7 +310,7 @@ class _CoolStepperState extends State<CoolStepper> {
 
     return Container(
       child: Column(
-        children: [content, Center(child: allf), buttons],
+        children: [content, allf, buttons],
       ),
     );
   }
