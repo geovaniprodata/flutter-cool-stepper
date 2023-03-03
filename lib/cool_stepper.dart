@@ -234,6 +234,7 @@ class _CoolStepperState extends State<CoolStepper>
         tabs: List.generate(nomeIndex.length, (index) {
           return Tab(
             text: nomeIndex.entries.elementAt(index).key,
+            child: listStack[index],
           );
         }));
 
