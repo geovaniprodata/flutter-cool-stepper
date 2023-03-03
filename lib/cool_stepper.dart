@@ -219,13 +219,15 @@ class _CoolStepperState extends State<CoolStepper> {
                 dialogType: DialogType.info,
                 headerAnimationLoop: false,
                 animType: AnimType.bottomSlide,
-                body: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    height: MediaQuery.of(context).size.height * 0.4,
+                body: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: Wrap(
                       direction: Axis.horizontal,
+                      spacing: 8,
+                      runSpacing: 12,
                       children: List.generate(widget.steps.length, (index) {
                         return ElevatedButton.icon(
                           onPressed: () {},
