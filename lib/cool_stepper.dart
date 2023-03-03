@@ -145,6 +145,7 @@ class _CoolStepperState extends State<CoolStepper>
             .push(MaterialPageRoute(builder: (context) => widget));
       },
       child: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(10),
         child: Text(title),
       ),
