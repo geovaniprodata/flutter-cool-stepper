@@ -417,10 +417,9 @@ class _CoolStepperState extends State<CoolStepper>
 
     return Container(
       child: Column(
-        children: widget.tabRequired
-            ? <Widget>[content, allf, buttons]
-            : <Widget>[topTabBar, indexedStack, allf, buttons],
-      ),
+          children: widget.tabRequired
+              ? <Widget>[topTabBar, allf, buttons]
+              : <Widget>[content, allf, buttons]),
     );
   }
 }
