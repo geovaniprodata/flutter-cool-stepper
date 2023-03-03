@@ -240,9 +240,18 @@ class _CoolStepperState extends State<CoolStepper> {
                                     ? Colors.red.shade400
                                     : Colors.black,
                           ),
-                          label: Text(
-                            'Campo $index',
-                            style: TextStyle(color: Colors.white),
+                          label: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Campo',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                index.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
                           style: ButtonStyle(
                             elevation: MaterialStatePropertyAll(4),
