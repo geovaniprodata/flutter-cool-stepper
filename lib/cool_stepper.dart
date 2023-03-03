@@ -260,7 +260,7 @@ class _CoolStepperState extends State<CoolStepper> {
                                           : Colors.black87),
                                 ),
                                 Text(
-                                  index.toString(),
+                                  (index + 1).toString(),
                                   style: TextStyle(
                                       color: widget.steps
                                                   .elementAt(index)
