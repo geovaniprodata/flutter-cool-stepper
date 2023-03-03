@@ -71,14 +71,18 @@ class _CoolStepperState extends State<CoolStepper>
   final translator = GoogleTranslator();
 
   @override
+  void initState() {
+    super.initState();
+    _setSteps();
+    _tabController = TabController(length: 2, vsync: this);
+    _setTabs();
+  }
+
+  @override
   void dispose() {
     _controller!.dispose();
     _controller = null;
     super.dispose();
-
-    _setSteps();
-    _tabController = TabController(length: 2, vsync: this);
-    _setTabs();
   }
 
   void _setTabs() async {
