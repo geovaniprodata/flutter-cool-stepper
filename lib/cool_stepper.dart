@@ -219,41 +219,38 @@ class _CoolStepperState extends State<CoolStepper> {
                 dialogType: DialogType.info,
                 headerAnimationLoop: false,
                 animType: AnimType.bottomSlide,
-                body: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      children: List.generate(widget.steps.length, (index) {
-                        return ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(
-                            widget.steps.elementAt(index).validation != null
-                                ? Icons.text_fields_rounded
-                                : Icons.text_fields,
-                            color:
-                                widget.steps.elementAt(index).validation != null
-                                    ? Colors.red.shade400
-                                    : Colors.black,
-                          ),
-                          label: Text('Campo $index'),
-                          style: ButtonStyle(
-                            elevation: MaterialStatePropertyAll(4),
-                            backgroundColor: MaterialStatePropertyAll(
-                                widget.steps.elementAt(index).validation != null
-                                    ? Colors.red.shade900
-                                    : Colors.white),
-                            shape:
-                                MaterialStatePropertyAll(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide.none,
-                            )),
-                          ),
-                        );
-                      }),
-                    ),
+                body: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: Wrap(
+                    direction: Axis.vertical,
+                    children: List.generate(widget.steps.length, (index) {
+                      return ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          widget.steps.elementAt(index).validation != null
+                              ? Icons.text_fields_rounded
+                              : Icons.text_fields,
+                          color:
+                              widget.steps.elementAt(index).validation != null
+                                  ? Colors.red.shade400
+                                  : Colors.black,
+                        ),
+                        label: Text('Campo $index'),
+                        style: ButtonStyle(
+                          elevation: MaterialStatePropertyAll(4),
+                          backgroundColor: MaterialStatePropertyAll(
+                              widget.steps.elementAt(index).validation != null
+                                  ? Colors.red.shade900
+                                  : Colors.white),
+                          shape:
+                              MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide.none,
+                          )),
+                        ),
+                      );
+                    }),
                   ),
                 ),
                 btnOkOnPress: () {},
