@@ -273,7 +273,7 @@ class _CoolStepperState extends State<CoolStepper> {
 
     return Container(
       child: Column(
-        children: [content, buttons],
+        children: [content, allf, buttons],
       ),
     );
   }
