@@ -219,7 +219,7 @@ class _CoolStepperState extends State<CoolStepper> {
                 dialogType: DialogType.info,
                 headerAnimationLoop: false,
                 animType: AnimType.bottomSlide,
-                btnOkColor: Colors.blue.shade400,
+                btnOkColor: Theme.of(context).primaryColor,
                 body: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.height * 0.6,
