@@ -415,21 +415,18 @@ class _CoolStepperState extends State<CoolStepper>
       ),
     );
 
-    return Container(
-      child: Column(
-          children: widget.tabRequired
-              ? <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: tabs.map((tab) {
-                      return _buildItem(
-                          context, tab.name, listPages[tab.index]);
-                    }).toList(),
-                  ),
-                  allf,
-                  buttons
-                ]
-              : <Widget>[content, allf, buttons]),
-    );
+    return Column(
+        children: widget.tabRequired
+            ? <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: tabs.map((tab) {
+                    return _buildItem(context, tab.name, listPages[tab.index]);
+                  }).toList(),
+                ),
+                allf,
+                buttons
+              ]
+            : <Widget>[content, allf, buttons]);
   }
 }
